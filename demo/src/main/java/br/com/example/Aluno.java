@@ -1,61 +1,59 @@
 package br.com.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Aluno {
-    public String matricula;
-    public String nome;
-    public int ano;
+    private int id;
+    private String nome;
+    private String email;
+    private String matricula;
+    private int anoEntrada;
 
-    public Aluno() {
-    }
+    public Aluno() {}
 
-    public Aluno(String matricula, String nome, int ano) {
-        this.matricula = matricula;
+    public Aluno(int id, String nome, String email, String matricula, int anoEntrada) {
+        this.id = id;
         this.nome = nome;
-        this.ano = ano;
+        this.email = email;
+        this.matricula = matricula;
+        this.anoEntrada = anoEntrada;
     }
 
-    public static void main(String[] args) {
-        List<Aluno> lista = new ArrayList<>();
+    public int getId() {
+        return id;
+    }
 
-        try {
-            // Carregar o driver do MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
+    public void setId(int id) {
+        this.id = id;
+    }
 
-            // Conectar ao banco de dados
-            Connection c1 = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/loja", "loja", "loja");
+    public String getNome() {
+        return nome;
+    }
 
-            // Criar uma declaração
-            Statement st = c1.createStatement();
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-            // Executar a consulta
-            ResultSet r1 = st.executeQuery("SELECT * FROM ALUNO");
+    public String getEmail() {
+        return email;
+    }
 
-            // Processar os resultados
-            while (r1.next()) {
-                lista.add(new Aluno(r1.getString("MATRICULA"),
-                        r1.getString("NOME"), r1.getInt("ENTRADA")));
-            }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-            // Fechar os recursos
-            r1.close();
-            st.close();
-            c1.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getMatricula() {
+        return matricula;
+    }
 
-        // Imprimir os resultados
-        for (Aluno aluno : lista) {
-            System.out.println("Aluno: " + aluno.nome +
-                    " (" + aluno.matricula + ") - " + aluno.ano);
-        }
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public int getAnoEntrada() {
+        return anoEntrada;
+    }
+
+    public void setAnoEntrada(int anoEntrada) {
+        this.anoEntrada = anoEntrada;
     }
 }
